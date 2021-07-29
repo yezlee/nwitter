@@ -5,6 +5,7 @@ const Auth = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [newAccount, setNewAccount] = useState(true);
+  const [error, setError] = useState("");
 
   const onChange = (event) => {
     // onChange를 아래 돔에 줬잖아. 그래서 뭔가 바뀔때마다 onChange가 실행됨.
@@ -48,10 +49,14 @@ const Auth = () => {
         data = await authService.signInWithEmailAndPassword(email, password);
       }
       console.log(data);
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      setError(error.message);
     }
   };
+
+  const toggleAccount = () => setNewAccount((prev) => !prev);
+  // 이거 버튼처럼 만들어놓은건데 클릭하면 두개값이 그냥 계속 바뀌는거
+  // 이거에 따라서 <input type="submit" value={newAccount ? "Create Account" : "Log In"} /> 이 값이 바뀐다. setNewAccount를 바꾸는 거니까.
 
   return (
     <div>
@@ -73,7 +78,11 @@ const Auth = () => {
           onChange={onChange}
         />
         <input type="submit" value={newAccount ? "Create Account" : "Log In"} />
+        {error}
       </form>
+      <span onClick={toggleAccount}>
+        {newAccount ? "Sign in" : "Create Account"}
+      </span>
       <div>
         <button>Continue with Google</button>
         <button>Continue whth Github</button>
