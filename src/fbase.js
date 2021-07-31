@@ -14,6 +14,7 @@ const firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
+export const firebaseInstance = firebase;
 export const authService = firebase.auth();
 // const auth = fbase.auth(); // App.js에서 이렇게 해주거나 아님 fbase.js안에서 authService 변수를 만들어서 export해주거나
 // 여기다가 이렇게 하는 이유는, auth서비스를 많이 호출할 예정이어서.

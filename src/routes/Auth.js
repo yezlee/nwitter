@@ -1,4 +1,4 @@
-import { authService } from "fbase";
+import { authService, firebaseInstance } from "fbase";
 import React, { useState } from "react";
 
 const Auth = () => {
@@ -58,6 +58,20 @@ const Auth = () => {
   // 이거 버튼처럼 만들어놓은건데 클릭하면 두개값이 그냥 계속 바뀌는거
   // 이거에 따라서 <input type="submit" value={newAccount ? "Create Account" : "Log In"} /> 이 값이 바뀐다. setNewAccount를 바꾸는 거니까.
 
+  const onSocialClick = async (event) => {
+    const {
+      target: { name },
+    } = event;
+    let provider;
+    if (name === "google") {
+      provider = new firebaseInstance.auth.GoogleAuthProvider();
+    } else if (name === "github") {
+      provider = new firebaseInstance.auth.GithubAuthProvider();
+    }
+    const data = await authService.signInWithPopup(provider);
+    console.log(data);
+  };
+
   return (
     <div>
       <form onSubmit={onSubmit}>
@@ -84,8 +98,12 @@ const Auth = () => {
         {newAccount ? "Sign in" : "Create Account"}
       </span>
       <div>
-        <button>Continue with Google</button>
-        <button>Continue whth Github</button>
+        <button onClick={onSocialClick} name="google">
+          Continue with Google
+        </button>
+        <button onClick={onSocialClick} name="github">
+          Continue whth Github
+        </button>
       </div>
     </div>
   );
