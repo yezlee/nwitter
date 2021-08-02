@@ -2,6 +2,7 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 import "firebase/firestore";
+import "firebase/storage";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -22,3 +23,4 @@ export const authService = firebase.auth();
 // 이렇게 하면 다른곳에서 authService를 이용할때마다 firebase.auth()를 호출해야하는데 여기서 호출해고 그걸 export해버리면 다른곳에서 import만 하면 되니까
 
 export const dbService = firebase.firestore();
+export const storageService = firebase.storage();
