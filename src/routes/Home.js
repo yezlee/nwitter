@@ -6,6 +6,12 @@ const Home = ({ userObj }) => {
   const [nweet, setNweet] = useState("");
   const [nweets, setNweets] = useState([]);
 
+  /*
+
+  이 방법은 오래된 트윗을 갖고 오는 방법임. 
+  새롭게 업데이트 되는걸 갖고 오는게 아니고.
+  그냥 아래 useEffect() 안에다가 바로 적을거야.
+
   const getNweets = async () => {
     const dbNweets = await dbService.collection("nweets").get();
     // console.log(dbNweets); 이렇게 얘를 갖고 오면 T라는 것을 갖고오는데 이건 querySnapChat이라는거고 그건 많은걸 갖고있지
@@ -29,10 +35,30 @@ const Home = ({ userObj }) => {
       // 여기선 함수를 전달해서 배열을 리턴하는 것임. 첫번째 요소는 가장 최근 document이고 - document.data() 그 뒤로 이전 document(...prev)를 가져오는것임.
     });
   };
+
+  
+    1. dbService.collection("nweets").get() 이렇게 해서 데이터를 가져오는 방법이나 - querySnapChat 사용
+        - forEach()를 해서 이걸 사용하면 새로고침해야지 새로운 데이터를 가져오는건가? 오래된 트윗만 가져오는거라고 했으니까
+        근데 snapshot를 하면 실시간이 가능!
+
+    2. 아래 useEffect() 에서 한것처럼 onSnapshot을 사용하거나 내 맘이야. 근데 이건 re-render안해도돼. 그래서 더 빠르게 실행되도록 만들어줄거야.
+        - 그리고 이건 리렌더링 안해도 되니까!!! 아 그래서 바로 실시간으로 가능하다는거구나
+
+
+
+
+  */
+
   useEffect(() => {
-    getNweets();
+    //getNweets();
     dbService.collection("nweets").onSnapshot((snapshot) => {
-      console.log("something hapened - read, delete, update...anything");
+      const nweetArray = snapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+      console.log("nweetArray", nweetArray);
+      console.log("snapshot", snapshot.docs); // 여기서 snapshot은 우리가 갖고 있는 쿼리랑 같음. t {_firestore: t, _delegate: t} 이렇게 뜨는거
+      setNweets(nweetArray);
     });
   }, []);
   const onSubmit = async (event) => {
