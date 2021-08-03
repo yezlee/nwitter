@@ -4,10 +4,9 @@ import Nweet from "components/Nweet";
 import { dbService, storageService } from "fbase";
 
 const Home = ({ userObj }) => {
-  console.log("userObj", userObj);
   const [nweet, setNweet] = useState(""); // this state is only for the form.
   const [nweets, setNweets] = useState([]);
-  const [attachment, setAttachment] = useState();
+  const [attachment, setAttachment] = useState("");
 
   /*
 
@@ -60,22 +59,32 @@ const Home = ({ userObj }) => {
         id: doc.id,
         ...doc.data(),
       }));
-      console.log("nweetArray", nweetArray);
-      console.log("snapshot", snapshot.docs); // 여기서 snapshot은 우리가 갖고 있는 쿼리랑 같음. t {_firestore: t, _delegate: t} 이렇게 뜨는거
+      // console.log("nweetArray", nweetArray);
+      // console.log("snapshot", snapshot.docs); // 여기서 snapshot은 우리가 갖고 있는 쿼리랑 같음. t {_firestore: t, _delegate: t} 이렇게 뜨는거
       setNweets(nweetArray);
     });
   }, []);
   const onSubmit = async (event) => {
     event.preventDefault();
-    const fileRef = storageService.ref().child(`${userObj.uid}/${uuidv4()}`);
-    const response = await fileRef.putString(attachment, "data_url");
-    console.log("response", response);
-    // await dbService.collection("nweets").add({
-    //   text: nweet,
-    //   createdAt: Date.now(),
-    //   creatorId: userObj.uid,
-    // });
-    // setNweet("");
+
+    let attachmentUrl = "";
+    if (attachment !== "") {
+      const attachmentRef = storageService
+        .ref()
+        .child(`${userObj.uid}/${uuidv4()}`);
+      const response = await attachmentRef.putString(attachment, "data_url");
+      attachmentUrl = await response.ref.getDownloadURL();
+    }
+    const nweetObj = {
+      text: nweet,
+      createdAt: Date.now(),
+      creatorId: userObj.uid,
+      attachmentUrl,
+    };
+
+    await dbService.collection("nweets").add(nweetObj);
+    setNweet("");
+    setAttachment("");
   };
   const onChange = (event) => {
     const {
@@ -84,7 +93,7 @@ const Home = ({ userObj }) => {
     setNweet(value);
   };
 
-  console.log("nweets", nweets);
+  // console.log("nweets", nweets);
 
   const onFileChange = (e) => {
     const {

@@ -21,7 +21,7 @@ const Nweet = ({ nweetObj, isOwner }) => {
   const onSubmit = async (e) => {
     // 사실 여기서 async는 필요가 없어 어떤 방법을 써도 snapshot 덕분에 업데이트는 확인할 수가 있어서
     e.preventDefault();
-    console.log(nweetObj, newNweet);
+    // console.log(nweetObj, newNweet);
     await dbService.doc(`nweets/${nweetObj.id}`).update({
       text: newNweet,
     });
@@ -53,6 +53,9 @@ const Nweet = ({ nweetObj, isOwner }) => {
       ) : (
         <>
           <h4>{nweetObj.text} </h4>
+          {nweetObj.attachmentUrl && (
+            <img src={nweetObj.attachmentUrl} width="100px" />
+          )}
           {isOwner && (
             <>
               <button onClick={onDeleteClick}>Delete Nweet</button>
