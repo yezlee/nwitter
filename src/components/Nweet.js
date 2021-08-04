@@ -1,4 +1,4 @@
-import { dbService } from "fbase";
+import { dbService, storageService } from "fbase";
 import React, { useState } from "react";
 
 const Nweet = ({ nweetObj, isOwner }) => {
@@ -14,6 +14,7 @@ const Nweet = ({ nweetObj, isOwner }) => {
     if (ok) {
       // delete nweet
       await dbService.doc(`nweets/${nweetObj.id}`).delete();
+      await storageService.refFromURL(nweetObj.attachmentUrl).delete(); // refFromURL() 이거를 사용해서 url으로부터 ref를 가져오는거야.
     }
   };
 
