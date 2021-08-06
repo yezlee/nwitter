@@ -8,7 +8,7 @@ import Navigation from "components/Navigation";
 const AppRouter = ({ isLoggedin, userObj }) => {
   return (
     <Router>
-      {isLoggedin && <Navigation />}
+      {isLoggedin && <Navigation userObj={userObj} />}
       {/* isLoggedin - this has to be true, for <Navigation /> happend.  */}
       <Switch>
         {isLoggedin ? (
