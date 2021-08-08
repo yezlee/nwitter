@@ -16,10 +16,9 @@ function App() {
           uid: user.uid,
           updateProfile: (args) => user.updateProfile(args),
         });
+      } else {
+        setUserObj(null); // profile에서 로그아웃하면 바로 로그인하는 창 나오게끔
       }
-      // else {
-      //   setIsLoggedIn(false);
-      // }
       setInit(true);
     });
   }, []);
