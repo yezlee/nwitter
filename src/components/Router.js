@@ -12,7 +12,16 @@ const AppRouter = ({ refreshUser, isLoggedin, userObj }) => {
       {/* isLoggedin - this has to be true, for <Navigation /> happend.  */}
       <Switch>
         {isLoggedin ? (
-          <>
+          <div
+            style={{
+              maxWidth: 890,
+              width: "100%",
+              margin: "0 auto",
+              marginTop: 80,
+              display: "flex",
+              justifyContent: "center",
+            }}
+          >
             <Route exact path="/">
               <Home userObj={userObj} />
             </Route>
@@ -20,7 +29,7 @@ const AppRouter = ({ refreshUser, isLoggedin, userObj }) => {
               <Profile refreshUser={refreshUser} userObj={userObj} />
             </Route>
             {/* <Redirect from="*" to="/" /> */}
-          </>
+          </div>
         ) : (
           <>
             <Route exact path="/">
