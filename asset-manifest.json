@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/yezlee/nwitter/static/css/main.5e64d60d.chunk.css",
+    "main.js": "/yezlee/nwitter/static/js/main.3284a4b0.chunk.js",
+    "main.js.map": "/yezlee/nwitter/static/js/main.3284a4b0.chunk.js.map",
+    "runtime-main.js": "/yezlee/nwitter/static/js/runtime-main.65375c67.js",
+    "runtime-main.js.map": "/yezlee/nwitter/static/js/runtime-main.65375c67.js.map",
+    "static/js/2.ea508e02.chunk.js": "/yezlee/nwitter/static/js/2.ea508e02.chunk.js",
+    "static/js/2.ea508e02.chunk.js.map": "/yezlee/nwitter/static/js/2.ea508e02.chunk.js.map",
+    "index.html": "/yezlee/nwitter/index.html",
+    "static/css/main.5e64d60d.chunk.css.map": "/yezlee/nwitter/static/css/main.5e64d60d.chunk.css.map",
+    "static/js/2.ea508e02.chunk.js.LICENSE.txt": "/yezlee/nwitter/static/js/2.ea508e02.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.65375c67.js",
+    "static/js/2.ea508e02.chunk.js",
+    "static/css/main.5e64d60d.chunk.css",
+    "static/js/main.3284a4b0.chunk.js"
+  ]
+}
