@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Nweet from "components/Nweet";
-import { dbService, storageService } from "fbase";
+import { dbService } from "fbase";
 import NweetFactory from "components/NweetFactory";
 
 const Home = ({ userObj }) => {
@@ -52,15 +52,18 @@ const Home = ({ userObj }) => {
   // Thanks to this we can tweet on realtime
   useEffect(() => {
     //getNweets();
-    dbService.collection("nweets").onSnapshot((snapshot) => {
-      const nweetArray = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      // console.log("nweetArray", nweetArray);
-      // console.log("snapshot", snapshot.docs); // 여기서 snapshot은 우리가 갖고 있는 쿼리랑 같음. t {_firestore: t, _delegate: t} 이렇게 뜨는거
-      setNweets(nweetArray);
-    });
+    dbService
+      .collection("nweets")
+      .orderBy("createdAt", "desc")
+      .onSnapshot((snapshot) => {
+        const nweetArray = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        // console.log("nweetArray", nweetArray);
+        // console.log("snapshot", snapshot.docs); // 여기서 snapshot은 우리가 갖고 있는 쿼리랑 같음. t {_firestore: t, _delegate: t} 이렇게 뜨는거
+        setNweets(nweetArray);
+      });
   }, []);
 
   return (

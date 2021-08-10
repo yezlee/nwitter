@@ -11,6 +11,7 @@ const AppRouter = ({ refreshUser, isLoggedin, userObj }) => {
       {isLoggedin && <Navigation userObj={userObj} />}
       {/* isLoggedin - this has to be true, for <Navigation /> happend.  */}
       <Switch>
+        {/* 여기서 <Switch>의 역할은 : 한번에 하나씩의 <Route>를 보게해준다.  */}
         {isLoggedin ? (
           <div
             style={{
